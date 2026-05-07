@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #74b6ce, #74b6ce);
+  color: #111827;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+}
+
+.todo-card {
+  width: 100%;
+  max-width: 760px;
+  background: #74b6ce;
+  color: #111827;
+  padding: 35px;
+  border-radius: 22px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+}
+
+.todo-card h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 38px;
+  color: #0f172a;
+}
+
+.subtitle {
+  text-align: center;
+  color: #1b1f1ca5;
+  margin-bottom: 28px;
+  font-size: medium;
+}
+
+.input-box {
+  display: flex;
+  gap: 12px;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-box button,
+.filter-box button,
+.actions button {
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.input-box button {
+  padding: 14px 22px;
+  border-radius: 12px;
+  background: #1f539b;
+}
+
+.filter-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  justify-content: center;
+}
+
+.filter-box button {
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #052654;
+}
+
+.counts {
+  margin-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.todo-list {
+  margin-top: 25px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 8px 11px;
+  border-radius: 9px;
+}
+
+.complete-btn {
+  background: #16a34a;
+}
+
+.edit-btn {
+  background: #f59e0b;
+}
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.empty-text {
+  text-align: center;
+  color: #64748b;
+  margin-top: 25px;
+}
