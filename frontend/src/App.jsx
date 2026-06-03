@@ -23,6 +23,8 @@ const fetchTodos = async () => {
     fetchTodos();
   }, []);
 
+
+
 const addOrUpdateTodo = async () => {
   try {
     setError("");

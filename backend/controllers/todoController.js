@@ -3,7 +3,7 @@ const Todo = require("../models/Todo");
 const getTodos = async (req, res) => {
   const todos = await Todo.find().sort({ createdAt: -1 });
   res.json(todos);
-};
+  };
 
 const createTodo = async (req, res) => {
   const todo = await Todo.create({
