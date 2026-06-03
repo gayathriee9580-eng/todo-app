@@ -7,51 +7,104 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [editId, setEditId] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const fetchTodos = async () => {
+const fetchTodos = async () => {
+  try {
     const res = await axios.get("http://localhost:5000/api/todos");
     setTodos(res.data);
-  };
+  } catch (err) {
+    setError("Failed to fetch todos.");
+  }
+};
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
-  const addOrUpdateTodo = async () => {
-    if (todo.trim() === "") return;
+const addOrUpdateTodo = async () => {
+  try {
+    setError("");
+    setSuccess("");
+
+    if (todo.trim() === "") {
+      setError("Task cannot be empty.");
+      return;
+    }
 
     if (editId) {
-      await axios.put(`http://localhost:5000/api/todos/${editId}`, {
-        title: todo,
-      });
+      await axios.put(
+        `http://localhost:5000/api/todos/${editId}`,
+        {
+          title: todo,
+        }
+      );
+
+      setSuccess("Task updated successfully.");
       setEditId(null);
     } else {
-      await axios.post("http://localhost:5000/api/todos", {
-        title: todo,
-      });
+      await axios.post(
+        "http://localhost:5000/api/todos",
+        {
+          title: todo,
+        }
+      );
+
+      setSuccess("Task added successfully.");
     }
 
     setTodo("");
     fetchTodos();
-  };
+  } catch (err) {
+    setError("Something went wrong.");
+  }
+};
 
   const editTodo = (item) => {
     setTodo(item.title);
     setEditId(item._id);
   };
 
-  const deleteTodo = async (id) => {
-    await axios.delete(`http://localhost:5000/api/todos/${id}`);
-    fetchTodos();
-  };
+const deleteTodo = async (id) => {
+  try {
+    setError("");
+    setSuccess("");
 
-  const toggleComplete = async (item) => {
-    await axios.put(`http://localhost:5000/api/todos/${item._id}`, {
-      completed: !item.completed,
-    });
+    await axios.delete(
+      `http://localhost:5000/api/todos/${id}`
+    );
+
+    setSuccess("Task deleted successfully.");
+    fetchTodos();
+  } catch (err) {
+    setError("Failed to delete task.");
+  }
+};
+
+const toggleComplete = async (item) => {
+  try {
+    setError("");
+    setSuccess("");
+
+    await axios.put(
+      `http://localhost:5000/api/todos/${item._id}`,
+      {
+        completed: !item.completed,
+      }
+    );
+
+    setSuccess(
+      item.completed
+        ? "Task marked as pending."
+        : "Task completed."
+    );
 
     fetchTodos();
-  };
+  } catch (err) {
+    setError("Failed to update task.");
+  }
+};
 
   const filteredTodos = todos.filter((item) => {
   if (filter === "completed") return item.completed;
@@ -67,6 +120,18 @@ const pendingCount = todos.filter((t) => !t.completed).length;
       <div className="todo-card">
         <h1>Todo App</h1>
         <p className="subtitle">Manage your daily tasks easily</p>
+
+            {error && (
+      <p className="error-message">
+        {error}
+      </p>
+    )}
+
+    {success && (
+      <p className="success-message">
+        {success}
+      </p>
+    )}
 
         <div className="input-box">
           <input
